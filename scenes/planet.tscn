@@ -1,0 +1,28 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://planet.gd" id="1_8fy4s"]
+[ext_resource type="Script" path="res://planetFaceMesh.gd" id="2_r8g4t"]
+[ext_resource type="Script" path="res://countriesManager.gd" id="2_t76x1"]
+[ext_resource type="Texture2D" uid="uid://catjq8n0yrjfg" path="res://earth_placeholder.jpg" id="2_wtnxu"]
+[ext_resource type="Shader" path="res://reliefSphere.gdshader" id="4_13ip1"]
+[ext_resource type="Texture2D" uid="uid://c4llatq657yl3" path="res://earth_heightmap_2.jpg" id="4_ivfjb"]
+rce("ShaderMaterial_ypydx")
+script = ExtResource("2_r8g4t")
+normal = Vector3(1, 0, 0)
+
+[node name="Forward" type="MeshInstance3D" parent="." groups=["face"]]
+material_override = SubResource("ShaderMaterial_ypydx")
+script = ExtResource("2_r8g4t")
+normal = Vector3(0, 0, -1)
+
+[node name="Back" type="MeshInstance3D" parent="." groups=["face"]]
+material_override = SubResource("ShaderMaterial_ypydx")
+script = ExtResource("2_r8g4t")
+normal = Vector3(0, 0, 1)
+
+[node name="point" type="CSGSphere3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.74838, -0.0253395, -0.662786)
+radius = 0.005
+radial_segments = 4
+rings = 2
+material = SubResource("StandardMaterial3D_wk8sc")

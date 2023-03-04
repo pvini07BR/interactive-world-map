@@ -1,0 +1,8 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://planet.gd" id="1_8fy4s"]
+[ext_resource type="Script" path="res://planetFaceMesh.gd" id="2_r8g4t"]
+[ext_resource type="Script" path="res://countriesManager.gd" id="2_t76x1"]
+[ext_resource type="Texture2D" uid="uid://catjq8n0yrjfg" path="res://assets/earth_placeholder.jpg" id="2_wtnxu"]
+[ext_resource type="Shader" path="res://reliefSphere.gdshader" id="4_13ip1"]
+[ext_resource type="Texture2D" uid="uid://c4llatq657yl3" path="res://assets/earth_heightmap_2.jpg" id="4_ivfjb"]

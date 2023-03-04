@@ -1,0 +1,33 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="world map"
+run/main_scene="res://scenes/map_viewer.tscn"
+config/features=PackedStringArray("4.0", "C#", "Forward Plus")
+config/icon="res://assets/icon.svg"
+
+[display]
+
+window/size/viewport_height=576
+
+[dotnet]
+
+project/assembly_name="world map"
+
+[editor]
+
+movie_writer/movie_file="C:/Users/pvini/OneDrive/Área de Trabalho/teste.avi"
+movie_writer/fps=30
+
+[rendering]
+
+renderer/rendering_method="mobile"

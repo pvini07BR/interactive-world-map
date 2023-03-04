@@ -1,0 +1,10 @@
+<Project Sdk="Godot.NET.Sdk/4.0.0">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <RootNamespace>worldmap</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Triangle" Version="0.0.6-Beta3" />
+  </ItemGroup>
+</Project>

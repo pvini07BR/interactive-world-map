@@ -1,0 +1,5 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scenes/planetViewer.gd" id="1_5b31k"]
+[ext_resource type="PackedScene" path="res://scenes/planet.tscn" id="1_gachw"]
+[ext_resource type="Script" path="res://scenes/cameraControl.gd" id="2_3uppg"]

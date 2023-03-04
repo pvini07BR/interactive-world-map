@@ -1,0 +1,329 @@
+[gd_scene load_steps=17 format=3 uid="uid://dinlktgehj8vp"]
+
+[ext_resource type="Script" path="res://scenes/map_viewer.gd" id="1_0rs8p"]
+[ext_resource type="Shader" uid="uid://dxqk8obq7micg" path="res://shaders/water.tres" id="2_0kn0k"]
+[ext_resource type="Texture2D" uid="uid://c4llatq657yl3" path="res://assets/earth_heightmap_2.jpg" id="3_bgxek"]
+[ext_resource type="Texture2D" uid="uid://cgfl8danmty0c" path="res://assets/hamburger-button-icon.svg" id="4_eqato"]
+[ext_resource type="Script" path="res://scenes/UI.gd" id="4_xwq6w"]
+[ext_resource type="Texture2D" uid="uid://bdpkllb08vp02" path="res://assets/close_button_icon.svg" id="5_arj15"]
+
+[sub_resource type="Environment" id="Environment_m7fte"]
+background_mode = 1
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.25
+reflected_light_source = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pdloj"]
+render_priority = 0
+shader = ExtResource("2_0kn0k")
+shader_parameter/Vertex_Time_Factor = 0.05
+shader_parameter/Waves_Height = 0.125
+shader_parameter/Color = Color(0.121569, 0.298039, 0.568627, 1)
+shader_parameter/Proximity_Fade_Distance = 0.125
+shader_parameter/Transparency = 0.8
+shader_parameter/Fragment_Time_Factor = 0.05
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_cgghk"]
+material = SubResource("ShaderMaterial_pdloj")
+size = Vector2(54, 27)
+subdivide_width = 54
+subdivide_depth = 27
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bpltk"]
+albedo_color = Color(0, 0.12549, 0.415686, 1)
+rim = 0.0
+rim_texture = ExtResource("3_bgxek")
+grow_amount = 1.103
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_axu5k"]
+material = SubResource("StandardMaterial3D_bpltk")
+size = Vector2(54, 27)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ybewk"]
+size = Vector3(540, 1, 540)
+
+[sub_resource type="LabelSettings" id="LabelSettings_cv4ox"]
+line_spacing = 0.0
+font_size = 32
+outline_size = 32
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_mwvcb"]
+line_spacing = 0.0
+font_size = 24
+font_color = Color(1, 1, 0, 1)
+outline_size = 24
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_iciov"]
+line_spacing = 0.0
+font_color = Color(0, 0.682353, 1, 1)
+outline_size = 16
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vyulg"]
+bg_color = Color(0, 0, 0, 0.75)
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+
+[node name="mapViewer" type="Node3D"]
+script = ExtResource("1_0rs8p")
+alwaysRegenerateCountryMeshes = true
+countryColor = Color(0.211765, 0.239216, 0.290196, 1)
+countryBorderColor = Color(0.447059, 0.466667, 0.501961, 1)
+selected_countryColor = Color(0.121569, 0.329412, 0.596078, 1)
+selected_countryBorderColor = Color(0.447059, 0.466667, 0.501961, 1)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.707107, -0.264887, 0.655618, 0, 0.927184, 0.374607, -0.707107, 0.264887, -0.655618, 0, 5, 0)
+light_bake_mode = 0
+shadow_enabled = true
+directional_shadow_mode = 0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_m7fte")
+
+[node name="Countries" type="Node3D" parent="."]
+
+[node name="map" type="StaticBody3D" parent="."]
+
+[node name="water" type="MeshInstance3D" parent="map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125, 0)
+cast_shadow = 0
+gi_mode = 0
+mesh = SubResource("PlaneMesh_cgghk")
+skeleton = NodePath("../..")
+
+[node name="ground" type="MeshInstance3D" parent="map"]
+cast_shadow = 0
+gi_mode = 0
+mesh = SubResource("PlaneMesh_axu5k")
+
+[node name="col" type="CollisionShape3D" parent="map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("BoxShape3D_ybewk")
+
+[node name="cameraPivot" type="Node3D" parent="."]
+
+[node name="camera" type="Camera3D" parent="cameraPivot"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 35, 0)
+keep_aspect = 0
+current = true
+size = 54.0
+
+[node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource("4_xwq6w")
+
+[node name="color" type="CanvasModulate" parent="UI"]
+
+[node name="Control" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="selectedCountryPanel" type="MarginContainer" parent="UI/Control"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -250.0
+offset_right = 251.0
+grow_vertical = 0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Control/selectedCountryPanel"]
+layout_mode = 2
+
+[node name="selectedCountryFlag" type="TextureRect" parent="UI/Control/selectedCountryPanel/VBoxContainer"]
+custom_minimum_size = Vector2(125, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 10
+expand_mode = 5
+stretch_mode = 4
+
+[node name="selectedCountryName" type="Label" parent="UI/Control/selectedCountryPanel/VBoxContainer"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_cv4ox")
+
+[node name="selectedCountryFormalName" type="Label" parent="UI/Control/selectedCountryPanel/VBoxContainer"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_mwvcb")
+
+[node name="selectedCountryAcronym" type="Label" parent="UI/Control/selectedCountryPanel/VBoxContainer"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_iciov")
+
+[node name="openMenuButtonContainer" type="PanelContainer" parent="UI/Control"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 45.0
+offset_bottom = 45.0
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Control/openMenuButtonContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="openMenu" type="TextureButton" parent="UI/Control/openMenuButtonContainer/MarginContainer"]
+layout_mode = 2
+texture_normal = ExtResource("4_eqato")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="menu" type="PanelContainer" parent="UI/Control"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = -363.0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vyulg")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Control/menu"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Control/menu/MarginContainer"]
+layout_mode = 2
+
+[node name="closeButton" type="TextureButton" parent="UI/Control/menu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture_normal = ExtResource("5_arj15")
+stretch_mode = 4
+
+[node name="HSeparator" type="HSeparator" parent="UI/Control/menu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="enableWater" type="HBoxContainer" parent="UI/Control/menu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/Control/menu/MarginContainer/VBoxContainer/enableWater"]
+layout_mode = 2
+text = "Enable Water"
+
+[node name="Control" type="Control" parent="UI/Control/menu/MarginContainer/VBoxContainer/enableWater"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CheckBox" type="CheckBox" parent="UI/Control/menu/MarginContainer/VBoxContainer/enableWater"]
+layout_mode = 2
+button_pressed = true
+
+[node name="extrudeCountries" type="HBoxContainer" parent="UI/Control/menu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/Control/menu/MarginContainer/VBoxContainer/extrudeCountries"]
+layout_mode = 2
+text = "Extrude Country Meshes"
+
+[node name="Control" type="Control" parent="UI/Control/menu/MarginContainer/VBoxContainer/extrudeCountries"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CheckBox" type="CheckBox" parent="UI/Control/menu/MarginContainer/VBoxContainer/extrudeCountries"]
+layout_mode = 2
+button_pressed = true
+
+[node name="countryColor" type="HBoxContainer" parent="UI/Control/menu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/Control/menu/MarginContainer/VBoxContainer/countryColor"]
+layout_mode = 2
+text = "Country Color"
+
+[node name="Control" type="Control" parent="UI/Control/menu/MarginContainer/VBoxContainer/countryColor"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="UI/Control/menu/MarginContainer/VBoxContainer/countryColor"]
+layout_mode = 2
+size_flags_horizontal = 3
+button_pressed = true
+color = Color(0.211765, 0.239216, 0.290196, 1)
+edit_alpha = false
+
+[node name="countryOutlineColor" type="HBoxContainer" parent="UI/Control/menu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/Control/menu/MarginContainer/VBoxContainer/countryOutlineColor"]
+layout_mode = 2
+text = "Country Outline Color"
+
+[node name="Control" type="Control" parent="UI/Control/menu/MarginContainer/VBoxContainer/countryOutlineColor"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="UI/Control/menu/MarginContainer/VBoxContainer/countryOutlineColor"]
+layout_mode = 2
+size_flags_horizontal = 3
+button_pressed = true
+color = Color(0.447059, 0.466667, 0.501961, 1)
+edit_alpha = false
+
+[node name="countrySelectedColor" type="HBoxContainer" parent="UI/Control/menu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/Control/menu/MarginContainer/VBoxContainer/countrySelectedColor"]
+layout_mode = 2
+text = "Selected Country Color"
+
+[node name="Control" type="Control" parent="UI/Control/menu/MarginContainer/VBoxContainer/countrySelectedColor"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="UI/Control/menu/MarginContainer/VBoxContainer/countrySelectedColor"]
+layout_mode = 2
+size_flags_horizontal = 3
+button_pressed = true
+color = Color(0.121569, 0.329412, 0.596078, 1)
+edit_alpha = false
+
+[node name="selectedCountryOutlineColor" type="HBoxContainer" parent="UI/Control/menu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/Control/menu/MarginContainer/VBoxContainer/selectedCountryOutlineColor"]
+layout_mode = 2
+text = "Selected Country Outline Color"
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="UI/Control/menu/MarginContainer/VBoxContainer/selectedCountryOutlineColor"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="UI/Control/menu/MarginContainer/VBoxContainer/selectedCountryOutlineColor"]
+layout_mode = 2
+size_flags_horizontal = 3
+button_pressed = true
+color = Color(0.447059, 0.466667, 0.501961, 1)
+edit_alpha = false
+
+[node name="info" type="Label" parent="UI/Control/menu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+text = "Tip: Press P for a wireframe view."
+
+[connection signal="country_selected" from="." to="UI" method="_on_map_viewer_country_selected"]
+[connection signal="pressed" from="UI/Control/openMenuButtonContainer/MarginContainer/openMenu" to="UI" method="_on_open_menu_pressed"]
+[connection signal="pressed" from="UI/Control/menu/MarginContainer/VBoxContainer/closeButton" to="UI" method="_on_close_button_pressed"]
+[connection signal="toggled" from="UI/Control/menu/MarginContainer/VBoxContainer/enableWater/CheckBox" to="." method="_on_check_box_toggled"]
+[connection signal="color_changed" from="UI/Control/menu/MarginContainer/VBoxContainer/countryColor/ColorPickerButton" to="." method="_on_country_color_changed"]
+[connection signal="color_changed" from="UI/Control/menu/MarginContainer/VBoxContainer/countryOutlineColor/ColorPickerButton" to="." method="_on_country_outline_color_changed"]
+[connection signal="color_changed" from="UI/Control/menu/MarginContainer/VBoxContainer/countrySelectedColor/ColorPickerButton" to="." method="_on_country_selected_color_changed"]
+[connection signal="color_changed" from="UI/Control/menu/MarginContainer/VBoxContainer/selectedCountryOutlineColor/ColorPickerButton" to="." method="_on_country_selected_outline_color_changed"]
