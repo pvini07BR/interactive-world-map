@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://cl4ukfc7gihbn"]
+
+[ext_resource type="Script" path="res://scenes/custom_drawing_test.gd" id="1_mjvvf"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_0ihi1"]
+
+[node name="customDrawingTest" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mjvvf")
+
+[node name="output" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("ImageTexture_0ihi1")
+stretch_mode = 5
+
+[node name="SubViewport" type="SubViewport" parent="."]
+
+[node name="Line2D" type="Line2D" parent="SubViewport"]

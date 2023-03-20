@@ -1,11 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://dinlktgehj8vp"]
+[gd_scene load_steps=17 format=3]
 
 [ext_resource type="Script" path="res://scenes/map_viewer.gd" id="1_0rs8p"]
-[ext_resource type="Shader" uid="uid://dxqk8obq7micg" path="res://shaders/water.tres" id="2_0kn0k"]
-[ext_resource type="Texture2D" uid="uid://c4llatq657yl3" path="res://assets/earth_heightmap_2.jpg" id="3_bgxek"]
-[ext_resource type="Texture2D" uid="uid://cgfl8danmty0c" path="res://assets/hamburger-button-icon.svg" id="4_eqato"]
+[ext_resource type="Shader" path="res://shaders/water.tres" id="2_0kn0k"]
+[ext_resource type="Texture2D" uid="uid://c4llatq657yl3" path="res://assets/images/earth_heightmap.jpg" id="3_05eyh"]
 [ext_resource type="Script" path="res://scenes/UI.gd" id="4_xwq6w"]
-[ext_resource type="Texture2D" uid="uid://bdpkllb08vp02" path="res://assets/close_button_icon.svg" id="5_arj15"]
+[ext_resource type="Texture2D" uid="uid://cgfl8danmty0c" path="res://assets/images/hamburger-button-icon.svg" id="5_3kr4v"]
+[ext_resource type="Texture2D" uid="uid://bdpkllb08vp02" path="res://assets/images/close_button_icon.svg" id="6_ugm3r"]
 
 [sub_resource type="Environment" id="Environment_m7fte"]
 background_mode = 1
@@ -33,7 +33,7 @@ subdivide_depth = 27
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bpltk"]
 albedo_color = Color(0, 0.12549, 0.415686, 1)
 rim = 0.0
-rim_texture = ExtResource("3_bgxek")
+rim_texture = ExtResource("3_05eyh")
 grow_amount = 1.103
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_axu5k"]
@@ -179,7 +179,7 @@ theme_override_constants/margin_bottom = 5
 
 [node name="openMenu" type="TextureButton" parent="UI/Control/openMenuButtonContainer/MarginContainer"]
 layout_mode = 2
-texture_normal = ExtResource("4_eqato")
+texture_normal = ExtResource("5_3kr4v")
 ignore_texture_size = true
 stretch_mode = 0
 
@@ -205,7 +205,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-texture_normal = ExtResource("5_arj15")
+texture_normal = ExtResource("6_ugm3r")
 stretch_mode = 4
 
 [node name="HSeparator" type="HSeparator" parent="UI/Control/menu/MarginContainer/VBoxContainer"]

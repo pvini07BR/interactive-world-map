@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://b6nm0av8ct85y"
+path="res://.godot/imported/faceted_sphere_30.obj-14910b9b38d5041f1e7170980517d894.mesh"
+
+[deps]
+
+files=["res://.godot/imported/faceted_sphere_30.obj-14910b9b38d5041f1e7170980517d894.mesh"]
+
+source_file="res://assets/models/faceted_sphere_30.obj"
+dest_files=["res://.godot/imported/faceted_sphere_30.obj-14910b9b38d5041f1e7170980517d894.mesh", "res://.godot/imported/faceted_sphere_30.obj-14910b9b38d5041f1e7170980517d894.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

@@ -9,7 +9,7 @@ extends Node3D
 @export var selected_countryBorderColor : Color = Color.WHITE
 
 var countryScn = load("res://scenes/country.tscn")
-var jsonFile := FileAccess.open("res://assets/ne_50m_admin_0_countries_lakes.json", FileAccess.READ)
+var jsonFile := FileAccess.open("res://assets/data/countries_data.json", FileAccess.READ)
 var parsedJson = JSON.parse_string(jsonFile.get_as_text())
 
 var pressedPos := Vector2.ZERO
@@ -161,7 +161,7 @@ func generate_countries():
 				newCountry.name = country["properties"]["NAME_EN"]
 				newCountry.formalName = country["properties"]["FORMAL_EN"]
 				newCountry.acronym = country["properties"]["ADM0_A3_US"]
-				newCountry.flag = load("res://assets/flags/" + newCountry.acronym + ".svg")
+				newCountry.flag = load("res://assets/images/flags/" + newCountry.acronym + ".svg")
 				newCountry.color = countryColor
 				newCountry.outlineColor = countryBorderColor
 				

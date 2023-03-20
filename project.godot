@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="world map"
-run/main_scene="res://scenes/map_viewer.tscn"
-config/features=PackedStringArray("4.0", "C#", "Forward Plus")
-config/icon="res://assets/icon.svg"
+run/main_scene="res://scenes/planet_viewer.tscn"
+config/features=PackedStringArray("4.0", "Forward Plus")
+config/icon="res://assets/images/icon.svg"
+
+[autoload]
+
+CountryLoader="*res://scenes/singletons/country_loader.tscn"
 
 [display]
 
